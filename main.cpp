@@ -5,6 +5,11 @@ struct Ball
     float x, y;
     float speedX, speedY;
     float radius;
+
+    void Draw()
+    {
+        DrawCircle((int) x, (int) y, radius, WHITE);
+    }
 };
 
 struct Paddle
@@ -79,7 +84,7 @@ int main()
         BeginDrawing();
             ClearBackground(BLACK);
 
-            DrawCircle((int) ball.x, (int) ball.y, ball.radius, WHITE);
+            ball.Draw();
             DrawRectangle(paddle1.posX, paddle1.posY, paddle1.width, paddle1.height, WHITE);
             DrawRectangle(paddle2.posX, paddle2.posY, paddle2.width, paddle2.height, WHITE);
 
