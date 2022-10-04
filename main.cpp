@@ -18,6 +18,12 @@ struct Paddle
     int width;
     int posX;
     int posY;
+    int speed;
+
+    void Draw()
+    {
+        DrawRectangle(posX - width / 2, posY - height / 2, width, height, WHITE);
+    }
 };
 
 int main()
@@ -36,13 +42,15 @@ int main()
     paddle1.height = 100;
     paddle1.width = 10; 
     paddle1.posX = 50;
-    paddle1.posY = (GetScreenHeight() / 2) - (paddle1.height / 2);
+    paddle1.posY = GetScreenHeight() / 2;
+    paddle1.speed = 500;
 
     //Paddle2 Properties
     paddle2.height = 100;
     paddle2.width = 10; 
     paddle2.posX = GetScreenWidth() - 50;
-    paddle2.posY = (GetScreenHeight() / 2) - (paddle2.height / 2);
+    paddle2.posY = GetScreenHeight() / 2;
+    paddle2.speed = 500;
     
     //Ball Properties
     ball.radius = 5;
@@ -85,8 +93,8 @@ int main()
             ClearBackground(BLACK);
 
             ball.Draw();
-            DrawRectangle(paddle1.posX, paddle1.posY, paddle1.width, paddle1.height, WHITE);
-            DrawRectangle(paddle2.posX, paddle2.posY, paddle2.width, paddle2.height, WHITE);
+            paddle1.Draw();
+            paddle2.Draw();
 
             DrawFPS(10,10);
         EndDrawing();
