@@ -9,7 +9,7 @@ struct Ball
     void Draw()
     {
         DrawCircle((int) x, (int) y, radius, WHITE);
-    }
+    };
 };
 
 struct Paddle
@@ -58,11 +58,15 @@ int main()
     paddle2.speed = 500;
     
     //Ball Properties
+    int ballSpeed = 300;
     ball.radius = 5;
     ball.x = GetScreenWidth() / 2.0f;
     ball.y = GetScreenHeight() / 2.0f;
-    ball.speedX = 300;
-    ball.speedY = 300;
+    ball.speedX = ballSpeed;
+    ball.speedY = ballSpeed;
+
+    const char* winnerText = nullptr;
+    const char* replayText = nullptr;
     
     while (!WindowShouldClose())
     {
@@ -131,12 +135,44 @@ int main()
             paddle2.posY += paddle1.speed * GetFrameTime();
         };
 
+        if (ball.x < 0 + ball.radius)
+        {
+            winnerText = "Player 2 wins!";
+            replayText = "Press Spacebar to Play Again";
+        };
+
+        if (ball.x > GetScreenWidth() - ball.radius)
+        {
+            winnerText = "Player 1 Wins!";
+            replayText = "Press Spacebar to Play Again";
+        };
+
+        if (winnerText && IsKeyPressed(KEY_SPACE))
+        {
+            ball.x = GetScreenWidth() / 2;
+            ball.y = GetScreenHeight() / 2;
+            ball.speedX = ballSpeed;
+            ball.speedY = ballSpeed;
+            winnerText = nullptr;
+        };
+        
+
         BeginDrawing();
             ClearBackground(BLACK);
 
             ball.Draw();
             paddle1.Draw();
             paddle2.Draw();
+
+            if (winnerText)
+            {
+                ball.speedX = 0;
+                ball.speedY = 0;
+                int textWidth = MeasureText(winnerText, 60);
+                int replayTextWidth = MeasureText(replayText, 30);
+                DrawText(winnerText, GetScreenWidth() / 2 - textWidth / 2, GetScreenHeight() / 2 - 30, 60, GOLD);
+                DrawText(replayText, GetScreenWidth() / 2 - replayTextWidth / 2, GetScreenHeight() / 2 + 60, 30, RED);
+            };            
 
             DrawFPS(10,10);
         EndDrawing();
