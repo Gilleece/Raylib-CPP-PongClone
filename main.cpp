@@ -1,57 +1,65 @@
 #include "raylib.h"
-//25:27
+
+struct Ball
+{
+    float x, y;
+    float speedX, speedY;
+    float radius;
+};
+
 int main()
 {
     InitWindow(800, 600, "Ultimate Pong");
     SetWindowState(FLAG_VSYNC_HINT);
+
+    //Create Ball
+    Ball ball;
     
     //Object Sizes
     int paddleHeight = 100;
-    int paddleWidth = 10;
-    float ballSize = 5;
+    int paddleWidth = 10;    
     
-    //Object Positions
-    float ballX = GetScreenWidth() / 2.0f;
-    float ballY = GetScreenHeight() / 2.0f;
-
-    //Ball Speed
-    float ballSpeedX = 300;
-    float ballSpeedY = 300;
+    //Ball Properties
+    ball.radius = 5;
+    ball.x = GetScreenWidth() / 2.0f;
+    ball.y = GetScreenHeight() / 2.0f;
+    ball.speedX = 300;
+    ball.speedY = 300;
     
     while (!WindowShouldClose())
     {
-        ballX += ballSpeedX * GetFrameTime();
-        ballY += ballSpeedY * GetFrameTime();
+        ball.x += ball.speedX * GetFrameTime();
+        ball.y += ball.speedY * GetFrameTime();
 
-        if (ballY > GetScreenHeight())
+        if (ball.y > GetScreenHeight())
         {
-            ballY = GetScreenHeight();
-            ballSpeedY *= -1;
+            ball.y = GetScreenHeight();
+            ball.speedY *= -1;
         };
 
-        if (ballY < 0)
+        if (ball.y < 0)
         {
-            ballY = 0;
-            ballSpeedY *= -1;
+            ball.y = 0;
+            ball.speedY *= -1;
         };
 
-        if (ballX > GetScreenWidth())
+        if (ball.x > GetScreenWidth())
         {
-            ballX = GetScreenWidth();
-            ballSpeedX *= -1;
+            ball.x = GetScreenWidth();
+            ball.speedX *= -1;
         };
 
-        if (ballX < 0)
+        if (ball.x < 0)
         {
-            ballX = 0;
-            ballSpeedX *= -1;
+            ball.x = 0;
+            ball.speedX *= -1;
         };
         
 
         BeginDrawing();
             ClearBackground(BLACK);
 
-            DrawCircle((int) ballX, (int) ballY, ballSize, WHITE);
+            DrawCircle((int) ball.x, (int) ball.y, ball.radius, WHITE);
             DrawRectangle(50, (GetScreenHeight() / 2) - (paddleHeight / 2), paddleWidth, paddleHeight, WHITE);
             DrawRectangle(GetScreenWidth() - 50, (GetScreenHeight() / 2) - (paddleHeight / 2), paddleWidth, paddleHeight, WHITE);
 
