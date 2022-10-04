@@ -23,6 +23,31 @@ int main()
         ballX += ballSpeedX * GetFrameTime();
         ballY += ballSpeedY * GetFrameTime();
 
+        if (ballY > GetScreenHeight())
+        {
+            ballY = GetScreenHeight();
+            ballSpeedY *= -1;
+        };
+
+        if (ballY < 0)
+        {
+            ballY = 0;
+            ballSpeedY *= -1;
+        };
+
+        if (ballX > GetScreenWidth())
+        {
+            ballX = GetScreenWidth();
+            ballSpeedX *= -1;
+        };
+
+        if (ballX < 0)
+        {
+            ballX = 0;
+            ballSpeedX *= -1;
+        };
+        
+
         BeginDrawing();
             ClearBackground(BLACK);
 
