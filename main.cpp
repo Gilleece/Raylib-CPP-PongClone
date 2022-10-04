@@ -126,13 +126,13 @@ int main()
         {
             paddle1.posY += paddle1.speed * GetFrameTime();
         };
-        if (IsKeyDown(KEY_UP) && paddle1.posY > paddle1.height / 2)
+        if (IsKeyDown(KEY_UP) && paddle2.posY > paddle2.height / 2)
         {
-            paddle2.posY -= paddle1.speed * GetFrameTime();
+            paddle2.posY -= paddle2.speed * GetFrameTime();
         };
-        if (IsKeyDown(KEY_DOWN) && paddle1.posY < GetScreenHeight() - (paddle1.height / 2))
+        if (IsKeyDown(KEY_DOWN) && paddle2.posY < GetScreenHeight() - (paddle2.height / 2))
         {
-            paddle2.posY += paddle1.speed * GetFrameTime();
+            paddle2.posY += paddle2.speed * GetFrameTime();
         };
 
         if (ball.x < 0 + ball.radius)
