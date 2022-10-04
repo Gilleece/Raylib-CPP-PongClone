@@ -7,6 +7,14 @@ struct Ball
     float radius;
 };
 
+struct Paddle
+{
+    int height;
+    int width;
+    int posX;
+    int posY;
+};
+
 int main()
 {
     InitWindow(800, 600, "Ultimate Pong");
@@ -14,10 +22,22 @@ int main()
 
     //Create Ball
     Ball ball;
+
+    //Create Paddles
+    Paddle paddle1;
+    Paddle paddle2;
     
-    //Object Sizes
-    int paddleHeight = 100;
-    int paddleWidth = 10;    
+    //Paddle1 Properties
+    paddle1.height = 100;
+    paddle1.width = 10; 
+    paddle1.posX = 50;
+    paddle1.posY = (GetScreenHeight() / 2) - (paddle1.height / 2);
+
+    //Paddle2 Properties
+    paddle2.height = 100;
+    paddle2.width = 10; 
+    paddle2.posX = GetScreenWidth() - 50;
+    paddle2.posY = (GetScreenHeight() / 2) - (paddle2.height / 2);
     
     //Ball Properties
     ball.radius = 5;
@@ -60,8 +80,8 @@ int main()
             ClearBackground(BLACK);
 
             DrawCircle((int) ball.x, (int) ball.y, ball.radius, WHITE);
-            DrawRectangle(50, (GetScreenHeight() / 2) - (paddleHeight / 2), paddleWidth, paddleHeight, WHITE);
-            DrawRectangle(GetScreenWidth() - 50, (GetScreenHeight() / 2) - (paddleHeight / 2), paddleWidth, paddleHeight, WHITE);
+            DrawRectangle(paddle1.posX, paddle1.posY, paddle1.width, paddle1.height, WHITE);
+            DrawRectangle(paddle2.posX, paddle2.posY, paddle2.width, paddle2.height, WHITE);
 
             DrawFPS(10,10);
         EndDrawing();
