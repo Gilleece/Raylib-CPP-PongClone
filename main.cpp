@@ -28,7 +28,7 @@ struct Paddle
 
 int main()
 {
-    InitWindow(800, 600, "Ultimate Pong");
+    InitWindow(1920, 1080, "Ultimate Pong");
     SetWindowState(FLAG_VSYNC_HINT);
 
     //Create Ball
@@ -64,6 +64,7 @@ int main()
         ball.x += ball.speedX * GetFrameTime();
         ball.y += ball.speedY * GetFrameTime();
 
+        //Ball collision
         if (ball.y > GetScreenHeight())
         {
             ball.y = GetScreenHeight();
@@ -88,6 +89,22 @@ int main()
             ball.speedX *= -1;
         };
         
+        if (IsKeyDown(KEY_W))
+        {
+            paddle1.posY -= paddle1.speed * GetFrameTime();
+        };
+        if (IsKeyDown(KEY_S))
+        {
+            paddle1.posY += paddle1.speed * GetFrameTime();
+        };
+        if (IsKeyDown(KEY_UP))
+        {
+            paddle2.posY -= paddle1.speed * GetFrameTime();
+        };
+        if (IsKeyDown(KEY_DOWN))
+        {
+            paddle2.posY += paddle1.speed * GetFrameTime();
+        };
 
         BeginDrawing();
             ClearBackground(BLACK);
