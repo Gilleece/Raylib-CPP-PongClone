@@ -14,21 +14,26 @@ struct Ball
 
 struct Paddle
 {
-    int height;
-    int width;
-    int posX;
-    int posY;
+    float height;
+    float width;
+    float posX;
+    float posY;
     int speed;
+    
+    Rectangle GetRect()
+    {
+        return Rectangle {posX - width / 2, posY - height / 2, width, height};
+    };
 
     void Draw()
     {
-        DrawRectangle(posX - width / 2, posY - height / 2, width, height, WHITE);
-    }
+        DrawRectangleRec(GetRect(), WHITE);
+    };
 };
 
 int main()
 {
-    InitWindow(1920, 1080, "Ultimate Pong");
+    InitWindow(800, 600, "Ultimate Pong");
     SetWindowState(FLAG_VSYNC_HINT);
 
     //Create Ball
@@ -64,7 +69,7 @@ int main()
         ball.x += ball.speedX * GetFrameTime();
         ball.y += ball.speedY * GetFrameTime();
 
-        //Ball collision
+        //Ball Wall Collision
         if (ball.y > GetScreenHeight())
         {
             ball.y = GetScreenHeight();
@@ -88,7 +93,27 @@ int main()
             ball.x = 0;
             ball.speedX *= -1;
         };
+
+        //Ball Paddle Collision
+        if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.radius, Rectangle{paddle1.GetRect()}))
+        {
+            if (ball.speedX < 0)
+            {
+                ball.speedX *= -1.1f;
+                ball.speedY = (ball.y - paddle1.posY) / (paddle1.height / 2) * ball.speedX;
+            };
+        };
+
+        if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.radius, Rectangle{paddle2.GetRect()}))
+        {
+            if (ball.speedX > 0)
+            {
+                ball.speedX *= -1.1f;
+                ball.speedY = (ball.y - paddle2.posY) / (paddle2.height / 2) * -ball.speedX;
+            };
+        };
         
+        //Paddle Controls
         if (IsKeyDown(KEY_W))
         {
             paddle1.posY -= paddle1.speed * GetFrameTime();
