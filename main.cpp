@@ -118,19 +118,19 @@ int main()
         };
         
         //Paddle Controls
-        if (IsKeyDown(KEY_W))
+        if (IsKeyDown(KEY_W) && paddle1.posY > paddle1.height / 2)
         {
             paddle1.posY -= paddle1.speed * GetFrameTime();
         };
-        if (IsKeyDown(KEY_S))
+        if (IsKeyDown(KEY_S) && paddle1.posY < GetScreenHeight() - (paddle1.height / 2))
         {
             paddle1.posY += paddle1.speed * GetFrameTime();
         };
-        if (IsKeyDown(KEY_UP))
+        if (IsKeyDown(KEY_UP) && paddle1.posY > paddle1.height / 2)
         {
             paddle2.posY -= paddle1.speed * GetFrameTime();
         };
-        if (IsKeyDown(KEY_DOWN))
+        if (IsKeyDown(KEY_DOWN) && paddle1.posY < GetScreenHeight() - (paddle1.height / 2))
         {
             paddle2.posY += paddle1.speed * GetFrameTime();
         };
